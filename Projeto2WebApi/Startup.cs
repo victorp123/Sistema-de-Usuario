@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
+using Projeto2WebApi.Services;
 
 [assembly: OwinStartup(typeof(Projeto2WebApi.Startup))]
 
@@ -26,7 +28,25 @@ namespace Projeto2WebApi
 
             app.UseCors(CorsOptions.AllowAll);
 
+
+            AtivarGeracaoTokens(app);
+
+
             app.UseWebApi(config);
+        }
+
+        private void AtivarGeracaoTokens(IAppBuilder app)
+        {
+
+            var opcoesConfiguracaoToken = new OAuthAuthorizationServerOptions()
+            {
+                AllowInsecureHttp = true,
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(1),
+                TokenEndpointPath = new PathString("/token"),
+                Provider = new ProviderDeTokensDeAcesso()
+            };
+
+
         }
     }
 }
