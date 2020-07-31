@@ -14,7 +14,9 @@ namespace Projeto2WebApi.Models
         }
 
         public DbSet<Cidade> cidades { get; set; }
+
         public DbSet<Usuario> usuarios { get; set; }
 
+        public DbSet<FuncionarioSistema> funcionarios { get; set; }
     }
 }
